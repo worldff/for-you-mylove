@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎂 Happy Birthday Sayang 💕</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="main-title">🎂 Happy Birthday Sayang 💕</h1>
+        <p class="subtitle">Hari istimewa untuk orang yang istimewa</p>
+        <div class="scroll-indicator" onclick="scrollToContent()">👇</div>
+    </section>
+
+    <!-- Content Section -->
+    <div class="content-section">
+
+        <!-- Music Player -->
+        <div class="section-card">
+            <h2 class="section-title">Special Day 💕🎂✨</h2>
+            <div class="music-player">
+                <div class="song-info">
+                    <div class="song-title">Happy Birthday To You</div>
+                    <div class="song-artist">Lagu Spesial Untuk Kamu ❤️</div>
+                </div>
+
+                <audio id="birthdayAudio" preload="auto" loop>
+                    <source src="bergema.mp3" type="audio/mpeg">
+                    <p>Your browser does not support the audio element.</p>
+                </audio>
+
+                <button class="play-button" onclick="togglePlay()" id="playBtn"
+                    aria-label="Play/Pause music">▶️</button>
+
+                <div class="progress-container" onclick="setProgress(event)">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+
+                <div class="loading-spinner" id="loadingSpinner"></div>
+                <div class="error-message" id="errorMessage">Audio tidak dapat dimuat. Pastikan file audio tersedia.
+                </div>
+                <div class="success-message" id="successMessage">Audio berhasil dimuat!</div>
+
+                <p class="music-info-text">🎵 Tekan play untuk mendengarkan lagu spesial 🎵</p>
+            </div>
+        </div>
+
+        <!-- Photo Gallery -->
+        <div class="section-card">
+            <h2 class="section-title">📸 Kenangan Bersama</h2>
+            <div class="memory-text">
+                Setiap foto adalah kenangan indah yang kita buat bersama. Upload foto-foto spesial kita dan buat galeri
+                kenangan yang tak terlupakan.
+            </div>
+
+            <div class="photo-gallery">
+
+                <!-- Foto Pertama -->
+                <div class="photo-card">
+                    <div class="photo-upload-area" onclick="triggerUpload(1)">
+                        <div class="upload-icon">📷</div>
+                        <div class="upload-text">Klik untuk upload foto pertama kita</div>
+                    </div>
+                    <input type="file" class="hidden-input" id="upload1" accept="image/*"
+                        onchange="handleImageUpload(1, event)">
+                    <div class="photo-info">
+                        <h3>Foto Pertama</h3>
+                        <p>Kenangan awal kita bersama</p>
+                    </div>
+                </div>
+
+                <!-- Foto Favorit -->
+                <div class="photo-card">
+                    <div class="photo-upload-area" onclick="triggerUpload(2)">
+                        <div class="upload-icon">💕</div>
+                        <div class="upload-text">Upload foto favorit kita</div>
+                    </div>
+                    <input type="file" class="hidden-input" id="upload2" accept="image/*"
+                        onchange="handleImageUpload(2, event)">
+                    <div class="photo-info">
+                        <h3>Foto Favorit</h3>
+                        <p>Momen yang paling berkesan</p>
+                    </div>
+                </div>
+
+                <!-- Foto Terbaru -->
+                <div class="photo-card">
+                    <div class="photo-upload-area" onclick="triggerUpload(3)">
+                        <div class="upload-icon">🌟</div>
+                        <div class="upload-text">Upload foto terbaru kita</div>
+                    </div>
+                    <input type="file" class="hidden-input" id="upload3" accept="image/*"
+                        onchange="handleImageUpload(3, event)">
+                    <div class="photo-info">
+                        <h3>Foto Terbaru</h3>
+                        <p>Kenangan yang baru saja kita buat</p>
+                    </div>
+                </div>
+
+                <!-- Foto Birthday -->
+                <div class="photo-card">
+                    <div class="photo-upload-area" onclick="triggerUpload(4)">
+                        <div class="upload-icon">🎂</div>
+                        <div class="upload-text">Upload foto birthday</div>
+                    </div>
+                    <input type="file" class="hidden-input" id="upload4" accept="image/*"
+                        onchange="handleImageUpload(4, event)">
+                    <div class="photo-info">
+                        <h3>Foto Birthday</h3>
+                        <p>Momen spesial hari ini</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Love Message -->
+        <div class="section-card">
+            <h2 class="section-title">💌 Pesan Cinta</h2>
+            <div class="love-message">
+                <p>Selamat ulang tahun untuk orang yang paling istimewa dalam hidupku. Terima kasih sudah menjadi bagian
+                    terpenting dalam hidupku.
+                    Semoga hari ini dan selamanya kamu selalu bahagia, sehat, dan semua impianmu tercapai. I love you so
+                    much! 💕🎂✨</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script>
+        // Scroll ke konten
+        function scrollToContent() {
+            document.querySelector('.content-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Play / Pause lagu
+        function togglePlay() {
+            const audio = document.getElementById('birthdayAudio');
+            const playBtn = document.getElementById('playBtn');
+            if (audio.paused) {
+                audio.play();
+                playBtn.textContent = '⏸️';
+            } else {
+                audio.pause();
+                playBtn.textContent = '▶️';
+            }
+        }
+
+        // Upload foto
+        function triggerUpload(num) {
+            document.getElementById('upload' + num).click();
+        }
+
+        function handleImageUpload(num, event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const uploadArea = document.querySelectorAll('.photo-upload-area')[num - 1];
+                    uploadArea.style.backgroundImage = `url('${e.target.result}')`;
+                    uploadArea.style.backgroundSize = "cover";
+                    uploadArea.style.backgroundPosition = "center";
+                    uploadArea.innerHTML = ""; // hapus teks dan ikon
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+
+</html>
